@@ -55,11 +55,12 @@
 
 import api from "../http/api"
 import { onMounted, ref } from "vue"
+import { allTasks } from "../http/task-api";
 
 const result = ref([])
 
 onMounted(async () => {
-  const { data } = await api.get("/tasks")
+  const { data } = await allTasks()
   result.value = data.data
 })
 

@@ -11,8 +11,6 @@ import TodosPage from './pages/TodosPage.vue'
 
   <TodosPage />
 
-  <!-- <Footer /> -->
-
 </template>
 
 <style scoped>
