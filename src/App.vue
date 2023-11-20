@@ -1,8 +1,7 @@
 <script setup>
 
-import Navbar from './components/Navbar.vue'
+import Navbar    from './components/Navbar.vue'
 import TodosPage from './pages/TodosPage.vue'
-import Footer from "./components/Footer.vue"
 
 </script>
 
@@ -12,7 +11,7 @@ import Footer from "./components/Footer.vue"
 
   <TodosPage />
 
-  <Footer />
+  <!-- <Footer /> -->
 
 </template>
 
