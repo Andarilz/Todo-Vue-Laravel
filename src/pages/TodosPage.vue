@@ -34,10 +34,11 @@
                 <tr v-for="r in result">
                   <th scope="row">{{ r.id }}</th>
                   <td>{{ r.name }}</td>
-                  <td>{{ r.status }}</td>
+                  <!-- <td><div class="status-circle" :class="getStatusClass(r.is_completed)"></div></td> -->
+                  <td><div class="status-circle" :class="{ 'green': r.is_completed, 'red': !r.is_completed }"></div></td>
                   <td>
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                    <button type="submit" class="btn btn-success ms-1">Finished</button>
+                    <button @click="deleteTaskApi(r.id)" class="btn btn-danger">Delete</button>
+                    <button @click="changeStatus(r)" class="btn btn-success">{{ r.is_completed ? "Restart" : "Finish" }}</button>
                   </td>
                 </tr>
               </tbody>
@@ -53,16 +54,60 @@
 
 <script setup>
 
-import api from "../http/api"
 import { onMounted, ref } from "vue"
-import { allTasks } from "../http/task-api";
+import { allTasks, deleteTask, completeTask } from "../http/task-api";
 
 const result = ref([])
 
-onMounted(async () => {
+const getTodoList = async () => {
   const { data } = await allTasks()
   result.value = data.data
+}
+
+onMounted(async () => {
+  getTodoList()
 })
 
+const deleteTaskApi = async (id) => {
+  await deleteTask(id)
+  getTodoList()
+}
+
+// const getStatusClass = (value) => {
+//   return {
+//     green: value,
+//     red: !value
+//   }
+// }
+
+const changeStatus = async (task) => {
+  await completeTask(task.id, {...task, is_completed: !task.is_completed})
+  getTodoList()
+}
+
 </script>
+
+<style scoped>
+
+/* Основной стиль для круга */
+.status-circle {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%; /* Делает элемент круглым */
+  display: inline-block;
+  margin-right: 5px; /* Можно настроить отступы, если нужно */
+}
+
+/* Стиль для зеленого круга */
+.green {
+  background-color: green;
+}
+
+/* Стиль для красного круга */
+.red {
+  background-color: red;
+}
+
+
+</style>
 
