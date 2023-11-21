@@ -13,6 +13,11 @@ import TodosPage from './pages/TodosPage.vue'
 
 </template>
 
-<style scoped>
+<style>
+
+.btn {
+  width: 90px;
+  margin: 5px;
+}
 
 </style>
