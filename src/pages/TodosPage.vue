@@ -1,3 +1,33 @@
+<script setup>
+
+import { onMounted, ref } from "vue"
+import { allTasks, deleteTask, completeTask, createTask } from "../http/task-api"
+import Form from "../components/Form.vue"
+
+const result = ref([])
+
+const getTodoList = async () => {
+  const { data } = await allTasks()
+  result.value = data.data
+}
+
+onMounted(async () => {
+  getTodoList()
+})
+
+const deleteTaskApi = async (id) => {
+  await deleteTask(id)
+  getTodoList()
+}
+
+const changeStatus = async (task) => {
+  await completeTask(task.id, {...task, is_completed: !task.is_completed})
+  getTodoList()
+}
+
+
+</script>
+
 <template>
 
 	<section class="h-100" style="background-color: #eee;">
@@ -7,24 +37,11 @@
         <div class="card rounded-3">
           <div class="card-body p-4">
             <h4 class="text-center my-3 pb-3">To Do App</h4>
-            <form class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2">
-              <div class="col-12">
-                <div class="form-outline">
-                  <input type="text" id="form1" class="form-control" v-model="form1" />
-                  <label class="form-label" for="form1">Enter a task here</label>
-                </div>
-              </div>
-              <div class="col-12">
-                <button @click="saveTask" class="btn btn-primary">Save</button>
-              </div>
-              <div class="col-12">
-                <button class="btn btn-warning">Get tasks</button>
-              </div>
-            </form>
+            <Form @emitAddTask="getTodoList" />
             <table class="table mb-4">
               <thead>
                 <tr>
-                  <th scope="col">No.</th>
+                  <th scope="col">Nubmer</th>
                   <th scope="col">Todo item</th>
                   <th scope="col">Status</th>
                   <th scope="col">Actions</th>
@@ -51,52 +68,6 @@
 </section>
 
 </template>
-
-<script setup>
-
-import { onMounted, ref } from "vue"
-import { allTasks, deleteTask, completeTask, createTask } from "../http/task-api";
-
-const result = ref([])
-
-const getTodoList = async () => {
-  const { data } = await allTasks()
-  result.value = data.data
-}
-
-onMounted(async () => {
-  getTodoList()
-})
-
-const deleteTaskApi = async (id) => {
-  await deleteTask(id)
-  getTodoList()
-}
-
-// const getStatusClass = (value) => {
-//   return {
-//     green: value,
-//     red: !value
-//   }
-// }
-
-const changeStatus = async (task) => {
-  await completeTask(task.id, {...task, is_completed: !task.is_completed})
-  getTodoList()
-}
-
-const form1 = ref("")
-
-const saveTask = async (event) => {
-  event.preventDefault()
-  if(form1.value.length > 5){
-    await createTask({ name: form1.value })
-    form1.value = ""
-    getTodoList()
-  }
-}
-
-</script>
 
 <style scoped>
 
