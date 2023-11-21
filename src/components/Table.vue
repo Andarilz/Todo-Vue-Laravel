@@ -1,5 +1,5 @@
 
-<script setup>
+<!-- <script setup>
 
 import OneTodo from "./OneTodo.vue"
 import { defineEmits, defineProps } from "vue"
@@ -14,6 +14,39 @@ const updateList = () => {
 defineProps({
 	result: Array
 })
+
+</script> -->
+
+<script>
+
+import OneTodo from "./OneTodo.vue"
+
+export default {
+
+	setup(props, context){
+
+		const updateList = () => {
+			context.emit("updateTaskList")
+		}
+
+		const result = props.result || []
+
+		return {
+			OneTodo,
+			result,
+			updateList
+		}
+
+	},
+	props: {
+			result: Array
+		},
+	components: {
+		OneTodo
+	}
+}
+
+
 
 </script>
 

@@ -57,7 +57,7 @@ export default {
 			</div>
 		</div>
 		<div class="col-12">
-			<button @click="saveTask" class="btn btn-primary">Save Task</button>
+			<button @click="saveTask" class="btn btn-primary">Save</button>
 		</div>
 	</form>
 </template>
