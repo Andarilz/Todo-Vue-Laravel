@@ -24,10 +24,9 @@ const changeStatus = async (task) => {
 
 <template>
 
-	<tr v-for="r in result">
-    <th scope="row">{{ r.id }}</th>
+	<tr v-for="(r, index) in result">
+    <th scope="row">{{ index + 1 }}</th>
 			<td>{{ r.name }}</td>
-                  <!-- <td><div class="status-circle" :class="getStatusClass(r.is_completed)"></div></td> -->
         <td><div class="status-circle" :class="{ 'green': r.is_completed, 'red': !r.is_completed }"></div></td>
         <td>
         <button @click="deleteTaskApi(r.id)" class="btn btn-danger">Delete</button>

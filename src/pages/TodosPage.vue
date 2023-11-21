@@ -1,6 +1,5 @@
 <script setup>
 
-
 import Form from "../components/Form.vue"
 import Table from "../components/Table.vue"
 import { ref, onMounted } from "vue"
@@ -17,33 +16,27 @@ onMounted(async () => {
   getTodoList()
 })
 
-
-
 </script>
 
 <template>
-
-	<section class="h-100" style="background-color: #eee;">
-  <div class="container py-5 h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col col-lg-9 col-xl-7">
-        <div class="card rounded-3">
-          <div class="card-body p-4">
-            <h4 class="text-center my-3 pb-3">To Do App</h4>
-            <Form  @updateTaskList="getTodoList" />
-            <Table @updateTaskList="getTodoList" :result="result" />
+  <section class="h-100" style="background-color: #eee;">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col col-lg-9 col-xl-7">
+          <div class="card rounded-3">
+            <div class="card-body p-4">
+              <h4 class="text-center my-3 pb-3">To Do App</h4>
+              <Form  @updateTaskList="getTodoList" />
+              <Table @updateTaskList="getTodoList" :result="result" />
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
-
+  </section>
 </template>
 
 <style scoped>
-
-
 
 
 </style>
