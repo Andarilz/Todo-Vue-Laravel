@@ -1,9 +1,10 @@
 <script setup>
 
-import { onMounted, ref } from "vue"
-import { allTasks } from "../http/task-api"
+
 import Form from "../components/Form.vue"
-import OneTodo from "../components/OneTodo.vue";
+import Table from "../components/Table.vue"
+import { ref, onMounted } from "vue"
+import { allTasks } from "../http/task-api";
 
 const result = ref([])
 
@@ -29,20 +30,8 @@ onMounted(async () => {
         <div class="card rounded-3">
           <div class="card-body p-4">
             <h4 class="text-center my-3 pb-3">To Do App</h4>
-            <Form @updateTaskList="getTodoList" />
-            <table class="table mb-4">
-              <thead>
-                <tr>
-                  <th scope="col">Nubmer</th>
-                  <th scope="col">Todo item</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <OneTodo :result="result" @updateTaskList="getTodoList" />
-              </tbody>
-            </table>
+            <Form  @updateTaskList="getTodoList" />
+            <Table @updateTaskList="getTodoList" :result="result" />
           </div>
         </div>
       </div>
