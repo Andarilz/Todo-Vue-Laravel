@@ -4,7 +4,7 @@ import { ref, defineEmits } from 'vue'
 import { createTask } from '../http/task-api';
 
 const emit = defineEmits([
-	"emitAddTask"
+	"updateTaskList"
 ])
 
 
@@ -15,7 +15,7 @@ const saveTask = async (event) => {
   if(form1.value.length > 5){
     await createTask({ name: form1.value })
     form1.value = ""
-		emit("emitAddTask")
+		emit("updateTaskList")
   }
 }
 

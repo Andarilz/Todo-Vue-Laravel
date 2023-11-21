@@ -1,8 +1,9 @@
 <script setup>
 
 import { onMounted, ref } from "vue"
-import { allTasks, deleteTask, completeTask, createTask } from "../http/task-api"
+import { allTasks } from "../http/task-api"
 import Form from "../components/Form.vue"
+import OneTodo from "../components/OneTodo.vue";
 
 const result = ref([])
 
@@ -15,15 +16,6 @@ onMounted(async () => {
   getTodoList()
 })
 
-const deleteTaskApi = async (id) => {
-  await deleteTask(id)
-  getTodoList()
-}
-
-const changeStatus = async (task) => {
-  await completeTask(task.id, {...task, is_completed: !task.is_completed})
-  getTodoList()
-}
 
 
 </script>
@@ -37,7 +29,7 @@ const changeStatus = async (task) => {
         <div class="card rounded-3">
           <div class="card-body p-4">
             <h4 class="text-center my-3 pb-3">To Do App</h4>
-            <Form @emitAddTask="getTodoList" />
+            <Form @updateTaskList="getTodoList" />
             <table class="table mb-4">
               <thead>
                 <tr>
@@ -48,16 +40,7 @@ const changeStatus = async (task) => {
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="r in result">
-                  <th scope="row">{{ r.id }}</th>
-                  <td>{{ r.name }}</td>
-                  <!-- <td><div class="status-circle" :class="getStatusClass(r.is_completed)"></div></td> -->
-                  <td><div class="status-circle" :class="{ 'green': r.is_completed, 'red': !r.is_completed }"></div></td>
-                  <td>
-                    <button @click="deleteTaskApi(r.id)" class="btn btn-danger">Delete</button>
-                    <button @click="changeStatus(r)" class="btn btn-success">{{ r.is_completed ? "Restart" : "Finish" }}</button>
-                  </td>
-                </tr>
+                <OneTodo :result="result" @updateTaskList="getTodoList" />
               </tbody>
             </table>
           </div>
@@ -71,24 +54,7 @@ const changeStatus = async (task) => {
 
 <style scoped>
 
-/* Основной стиль для круга */
-.status-circle {
-  width: 15px;
-  height: 15px;
-  border-radius: 50%; /* Делает элемент круглым */
-  display: inline-block;
-  margin-right: 5px; /* Можно настроить отступы, если нужно */
-}
 
-/* Стиль для зеленого круга */
-.green {
-  background-color: green;
-}
-
-/* Стиль для красного круга */
-.red {
-  background-color: red;
-}
 
 
 </style>
