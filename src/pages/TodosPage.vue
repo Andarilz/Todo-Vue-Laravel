@@ -2,7 +2,7 @@
 
 import Form from "../components/Form.vue"
 import Table from "../components/Table.vue"
-import { ref, onMounted } from "vue"
+import { ref, onMounted, computed } from "vue"
 import { allTasks } from "../http/task-api";
 
 const result = ref([])
@@ -16,6 +16,9 @@ onMounted(async () => {
   getTodoList()
 })
 
+const completedTasks   = computed(() => result.value.filter(task =>  task.is_completed))
+const uncompletedTasks = computed(() => result.value.filter(task => !task.is_completed))
+
 </script>
 
 <template>
@@ -27,7 +30,8 @@ onMounted(async () => {
             <div class="card-body p-4">
               <h4 class="text-center my-3 pb-3">To Do App</h4>
               <Form  @updateTaskList="getTodoList" />
-              <Table @updateTaskList="getTodoList" :result="result" />
+              <Table @updateTaskList="getTodoList" :result="completedTasks" />
+              <Table @updateTaskList="getTodoList" :result="uncompletedTasks" />
             </div>
           </div>
         </div>
