@@ -7,16 +7,16 @@ defineProps({
 	result: Array
 })
 
-const emit = defineEmits(["updateTaskList"])
+const emit = defineEmits(["updateInnerTaskList"])
 
 const deleteTaskApi = async (id) => {
   await deleteTask(id)
-  emit("updateTaskList")
+  emit("updateInnerTaskList")
 }
 
 const changeStatus = async (task) => {
   await completeTask(task.id, {...task, is_completed: !task.is_completed})
-  emit("updateTaskList")
+  emit("updateInnerTaskList")
 }
 
 </script>

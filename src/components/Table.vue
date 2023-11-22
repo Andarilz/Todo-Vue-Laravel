@@ -19,33 +19,32 @@ defineProps({
 
 <script>
 
-import OneTodo from "./OneTodo.vue"
+import OneTodo from './OneTodo.vue'
+
 
 export default {
 
 	setup(props, context){
 
+		const result = props.result
 		const updateList = () => {
 			context.emit("updateTaskList")
 		}
 
-		const result = props.result || []
-
 		return {
-			OneTodo,
 			result,
 			updateList
 		}
-
 	},
 	props: {
-			result: Array
-		},
+		result: Array
+	},
+	emits: ["updateTaskList"],
 	components: {
 		OneTodo
 	}
-}
 
+}
 
 
 </script>
@@ -62,7 +61,7 @@ export default {
       </tr>
 		</thead>
       <tbody>
-			<OneTodo :result="result" @updateTaskList="updateList" />
+			<OneTodo :result="result" @updateInnerTaskList="updateList" />
 		</tbody>
 	</table>
 
