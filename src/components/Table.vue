@@ -37,7 +37,11 @@ export default {
 		}
 	},
 	props: {
-		result: Array
+		result: Array,
+		show: {
+			type: Boolean,
+			default: true
+		}
 	},
 	emits: ["updateTaskList"],
 	components: {
@@ -51,7 +55,7 @@ export default {
 
 <template>
 
-	<table class="table mb-4">
+	<table class="table mb-4" v-if="show">
     <thead>
       <tr>
         <th scope="col">Nubmer</th>

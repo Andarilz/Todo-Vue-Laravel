@@ -16,8 +16,12 @@ import TodosPage from './pages/TodosPage.vue'
 <style>
 
 .btn {
-  width: 90px;
+  width: 105px;
   margin: 5px;
+}
+
+.table>:not(caption)>*>* {
+  min-width: 180px
 }
 
 </style>
