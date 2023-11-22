@@ -61,7 +61,9 @@ export default {
       </tr>
 		</thead>
       <tbody>
-			<OneTodo :result="result" @updateInnerTaskList="updateList" />
+			<tr v-for="(r, index) in result">
+				<OneTodo :result="r" :index="index" @updateInnerTaskList="updateList" />
+			</tr>
 		</tbody>
 	</table>
 

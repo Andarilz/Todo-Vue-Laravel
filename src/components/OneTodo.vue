@@ -1,10 +1,11 @@
 <script setup>
 
-import { defineProps, defineEmits } from 'vue'
+import { defineProps, defineEmits, computed, isVNode } from 'vue'
 import { deleteTask, completeTask } from '../http/task-api';
 
-defineProps({
-	result: Array
+const props = defineProps({
+	result: Object,
+  index: Number
 })
 
 const emit = defineEmits(["updateInnerTaskList"])
@@ -19,20 +20,21 @@ const changeStatus = async (task) => {
   emit("updateInnerTaskList")
 }
 
+const isCompleted = computed(() => props.result.is_completed ? "green" : "red")
+
+
 </script>
 
 
 <template>
 
-	<tr v-for="(r, index) in result">
     <th scope="row">{{ index + 1 }}</th>
-			<td>{{ r.name }}</td>
-        <td><div class="status-circle" :class="{ 'green': r.is_completed, 'red': !r.is_completed }"></div></td>
+			<td>{{ result.name }}</td>
+        <td><div class="status-circle" :class="isCompleted"></div></td>
         <td>
-        <button @click="deleteTaskApi(r.id)" class="btn btn-danger">Delete</button>
-        <button @click="changeStatus(r)" class="btn btn-success">{{ r.is_completed ? "Restart" : "Finish" }}</button>
+        <button @click="deleteTaskApi(result.id)" class="btn btn-danger">Delete</button>
+        <button @click="changeStatus(result)" class="btn btn-success">{{ result.is_completed ? "Restart" : "Finish" }}</button>
     </td>
-	</tr>
 
 </template>
 
