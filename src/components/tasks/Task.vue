@@ -9,12 +9,16 @@ const task = ref({})
 const isEdit = ref(false)
 
 const isEditTask = result => {
-
   isEdit.value = !isEdit.value
-
+  // getTaskById(result.id)
   form1.value = result.name
-
 }
+
+// const getTaskById = async id => {
+//   const { data } = await getTask(id)
+//   task.value = data.data
+//   form1.value = task.value.name
+// }
 
 const toggleEdit = () => isEdit.value = !isEdit.value
 
