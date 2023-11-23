@@ -55,7 +55,7 @@ export default {
 
 <template>
 
-	<table class="table mb-4" v-if="show">
+	<table class="table mb-4" v-if="show" >
     <thead>
       <tr>
         <th scope="col">Nubmer</th>

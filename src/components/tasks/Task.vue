@@ -47,6 +47,16 @@ const editTask = async (res) => {
     isEditTask()
 }
 
+const textUnderline = completed => {
+  if(completed){
+      return {
+        "text-decoration": "line-through"
+    }
+  }
+}
+
+
+
 
 </script>
 
@@ -54,7 +64,9 @@ const editTask = async (res) => {
 <template>
 
     <th scope="row">{{ index + 1 }}</th>
-			  <td v-if="!isEdit" @dblclick="isEditTask(result)">{{ result.name }}</td>
+			  <td v-if="!isEdit" @dblclick="isEditTask(result)">
+          <p :style="textUnderline(result.is_completed)">{{ result.name }}</p>
+        </td>
         <td v-else>
           <input
             type="text"

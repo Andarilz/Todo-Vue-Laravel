@@ -49,7 +49,7 @@ const hideCompleted = computed(() => {
                   <span v-else>Show</span>
                 </button>
               </div>
-              <Tasks @updateTaskList="getTodoList" :result="completedTasks" :show="toggleTasks && hideComplete" />
+              <Tasks style="opacity: 50%" @updateTaskList="getTodoList" :result="completedTasks" :show="toggleTasks && hideComplete" />
             </div>
           </div>
         </div>
