@@ -1,7 +1,7 @@
 <script setup>
 
 import Form from "../components/Form.vue"
-import Table from "../components/Table.vue"
+import Tasks from "../components/tasks/Tasks.vue"
 import { ref, onMounted, computed } from "vue"
 import { allTasks } from "../http/task-api";
 
@@ -42,14 +42,14 @@ const hideCompleted = computed(() => {
             <div class="card-body p-4">
               <h4 class="text-center my-3 pb-3">To Do App</h4>
               <Form  @updateTaskList="getTodoList" />
-              <Table @updateTaskList="getTodoList" :result="uncompletedTasks" />
+              <Tasks @updateTaskList="getTodoList" :result="uncompletedTasks" />
               <div v-show="showCompleted">
                 <button class="btn btn-danger" @click="toggleTasks = !toggleTasks">
                   <span v-if="toggleTasks">Hide</span>
                   <span v-else>Show</span>
                 </button>
               </div>
-              <Table @updateTaskList="getTodoList" :result="completedTasks" :show="toggleTasks && hideComplete" />
+              <Tasks @updateTaskList="getTodoList" :result="completedTasks" :show="toggleTasks && hideComplete" />
             </div>
           </div>
         </div>

@@ -13,7 +13,7 @@ const form1 = ref("")
 const saveTask = async (event) => {
   event.preventDefault()
   if(form1.value.length > 5){
-    await createTask({ name: form1.value })
+    await createTask({ name: form1.value.trim() })
     form1.value = ""
 		emit("updateTaskList")
   }

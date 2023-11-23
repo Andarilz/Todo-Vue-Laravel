@@ -19,7 +19,7 @@ defineProps({
 
 <script>
 
-import OneTodo from './OneTodo.vue'
+import Task from './Task.vue'
 
 
 export default {
@@ -45,7 +45,7 @@ export default {
 	},
 	emits: ["updateTaskList"],
 	components: {
-		OneTodo
+		Task
 	}
 
 }
@@ -66,7 +66,7 @@ export default {
 		</thead>
       <tbody>
 			<tr v-for="(r, index) in result">
-				<OneTodo :result="r" :index="index" @updateInnerTaskList="updateList" />
+				<Task :result="r" :index="index" @updateInnerTaskList="updateList" />
 			</tr>
 		</tbody>
 	</table>

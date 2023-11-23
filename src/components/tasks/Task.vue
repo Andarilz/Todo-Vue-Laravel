@@ -1,7 +1,8 @@
 <script setup>
 
-import { defineProps, defineEmits, computed, isVNode } from 'vue'
-import { deleteTask, completeTask } from '../http/task-api';
+import { defineProps, defineEmits, computed } from 'vue'
+import { deleteTask, completeTask } from '../../http/task-api'
+import TaskActions from './TaskActions.vue'
 
 const props = defineProps({
 	result: Object,
@@ -32,8 +33,7 @@ const isCompleted = computed(() => props.result.is_completed ? "green" : "red")
 			<td>{{ result.name }}</td>
         <td><div class="status-circle" :class="isCompleted"></div></td>
         <td>
-        <button @click="deleteTaskApi(result.id)" class="btn btn-danger">Delete</button>
-        <button @click="changeStatus(result)" class="btn btn-success">{{ result.is_completed ? "Restart" : "Finish" }}</button>
+        <TaskActions :result="result" @changeStatusInner="changeStatus($event)" @deleteTaskApiInner="deleteTaskApi($event)" />
     </td>
 
 </template>
