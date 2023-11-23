@@ -1,16 +1,22 @@
 <script setup>
 
-import { defineProps, defineEmits, computed, ref } from 'vue'
-import { deleteTask, completeTask, updateTask } from '../../http/task-api'
+import { defineProps, defineEmits, computed, ref, onMounted } from 'vue'
+import { deleteTask, completeTask, updateTask, getTask } from '../../http/task-api'
 import TaskActions from './TaskActions.vue'
 
+const form1 = ref("")
+const task = ref({})
 const isEdit = ref(false)
 
-const form1 = ref("")
+const isEditTask = result => {
 
-const isEditTask = () => {
   isEdit.value = !isEdit.value
+
+  form1.value = result.name
+
 }
+
+const toggleEdit = () => isEdit.value = !isEdit.value
 
 const props = defineProps({
 	result: Object,
@@ -37,17 +43,25 @@ const editTask = async (res) => {
     isEditTask()
 }
 
+
 </script>
 
 
 <template>
 
     <th scope="row">{{ index + 1 }}</th>
-			  <td v-if="!isEdit">{{ result.name }}</td>
-        <td v-else><input type="text" v-model="form1" @keyup.enter="editTask(result)"></td>
+			  <td v-if="!isEdit" @dblclick="isEditTask(result)">{{ result.name }}</td>
+        <td v-else>
+          <input
+            type="text"
+            v-model="form1"
+            @keyup.enter="editTask(result)"
+            @keyup.esc="toggleEdit"
+          >
+        </td>
         <td><div class="status-circle" :class="isCompleted"></div></td>
         <td>
-        <TaskActions @editEmit="isEditTask" :result="result" @changeStatusInner="changeStatus($event)" @deleteTaskApiInner="deleteTaskApi($event)" />
+        <TaskActions @editEmit="isEditTask(result)" :result="result" @changeStatusInner="changeStatus($event)" @deleteTaskApiInner="deleteTaskApi($event)" />
     </td>
 
 </template>
