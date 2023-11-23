@@ -1,8 +1,16 @@
 <script setup>
 
-import { defineProps, defineEmits, computed } from 'vue'
-import { deleteTask, completeTask } from '../../http/task-api'
+import { defineProps, defineEmits, computed, ref } from 'vue'
+import { deleteTask, completeTask, updateTask } from '../../http/task-api'
 import TaskActions from './TaskActions.vue'
+
+const isEdit = ref(false)
+
+const form1 = ref("")
+
+const isEditTask = () => {
+  isEdit.value = !isEdit.value
+}
 
 const props = defineProps({
 	result: Object,
@@ -23,6 +31,11 @@ const changeStatus = async (task) => {
 
 const isCompleted = computed(() => props.result.is_completed ? "green" : "red")
 
+const editTask = async (res) => {
+    await updateTask(res.id, { ...res, name: form1.value })
+    emit("updateInnerTaskList")
+    isEditTask()
+}
 
 </script>
 
@@ -30,10 +43,11 @@ const isCompleted = computed(() => props.result.is_completed ? "green" : "red")
 <template>
 
     <th scope="row">{{ index + 1 }}</th>
-			<td>{{ result.name }}</td>
+			  <td v-if="!isEdit">{{ result.name }}</td>
+        <td v-else><input type="text" v-model="form1" @keyup.enter="editTask(result)"></td>
         <td><div class="status-circle" :class="isCompleted"></div></td>
         <td>
-        <TaskActions :result="result" @changeStatusInner="changeStatus($event)" @deleteTaskApiInner="deleteTaskApi($event)" />
+        <TaskActions @editEmit="isEditTask" :result="result" @changeStatusInner="changeStatus($event)" @deleteTaskApiInner="deleteTaskApi($event)" />
     </td>
 
 </template>
