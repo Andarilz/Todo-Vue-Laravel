@@ -1,8 +1,7 @@
 <script setup>
 
-import Navbar from './components/Navbar.vue'
+import Navbar    from './components/Navbar.vue'
 import TodosPage from './pages/TodosPage.vue'
-import Footer from "./components/Footer.vue"
 
 </script>
 
@@ -12,10 +11,17 @@ import Footer from "./components/Footer.vue"
 
   <TodosPage />
 
-  <Footer />
-
 </template>
 
-<style scoped>
+<style>
+
+.btn {
+  width: 105px;
+  margin: 5px;
+}
+
+.table>:not(caption)>*>* {
+  min-width: 180px
+}
 
 </style>
