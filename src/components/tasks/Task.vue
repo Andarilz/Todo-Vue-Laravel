@@ -5,7 +5,6 @@ import { deleteTask, completeTask, updateTask, getTask } from '../../http/task-a
 import TaskActions from './TaskActions.vue'
 
 const form1 = ref("")
-const task = ref({})
 const isEdit = ref(false)
 
 const isEditTask = result => {

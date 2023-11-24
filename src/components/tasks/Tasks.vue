@@ -20,16 +20,24 @@ defineProps({
 <script>
 
 import Task from './Task.vue'
+import { useTaskStore } from '../../stores/task'
+import { onMounted, ref, computed } from 'vue'
 
 
 export default {
 
 	setup(props, context){
+		// const result = props.result
 
-		const result = props.result
+
+		const store = useTaskStore()
+		const result = computed(() => store.tasks)
+
 		const updateList = () => {
 			context.emit("updateTaskList")
 		}
+
+
 
 		return {
 			result,
@@ -37,7 +45,7 @@ export default {
 		}
 	},
 	props: {
-		result: Array,
+		// result: Array,
 		show: {
 			type: Boolean,
 			default: true

@@ -6,17 +6,20 @@ import { ref, onMounted, computed } from "vue"
 import { allTasks } from "../http/task-api"
 import { useTaskStore } from "../stores/task"
 
-const store = useTaskStore()
 const result = ref([])
+const store = useTaskStore()
 
 const getTodoList = async () => {
   const { data } = await allTasks()
   result.value = data.data
+  store.$patch({
+    tasks: data.data
+  })
 }
 
 onMounted(async () => {
   getTodoList()
-  console.log(store.task)
+  console.log(store.tasks)
 })
 
 const completedTasks   = computed(() => result.value.filter(task =>  task.is_completed))
