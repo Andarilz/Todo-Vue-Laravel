@@ -3,8 +3,10 @@
 import Form from "../components/Form.vue"
 import Tasks from "../components/tasks/Tasks.vue"
 import { ref, onMounted, computed } from "vue"
-import { allTasks } from "../http/task-api";
+import { allTasks } from "../http/task-api"
+import { useTaskStore } from "../stores/task"
 
+const store = useTaskStore()
 const result = ref([])
 
 const getTodoList = async () => {
@@ -14,6 +16,7 @@ const getTodoList = async () => {
 
 onMounted(async () => {
   getTodoList()
+  console.log(store.task)
 })
 
 const completedTasks   = computed(() => result.value.filter(task =>  task.is_completed))
