@@ -7,8 +7,6 @@ import { allTasks } from "../http/task-api";
 
 const result = ref([])
 
-// const showCompleted = ref(true)
-
 const getTodoList = async () => {
   const { data } = await allTasks()
   result.value = data.data
@@ -49,7 +47,7 @@ const hideCompleted = computed(() => {
                   <span v-else>Show</span>
                 </button>
               </div>
-              <Tasks style="opacity: 50%" @updateTaskList="getTodoList" :result="completedTasks" :show="toggleTasks && hideComplete" />
+              <Tasks :opacity="true" @updateTaskList="getTodoList" :result="completedTasks" :show="toggleTasks && showCompleted" />
             </div>
           </div>
         </div>

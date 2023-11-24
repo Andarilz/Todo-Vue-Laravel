@@ -24,7 +24,8 @@ const toggleEdit = () => isEdit.value = !isEdit.value
 
 const props = defineProps({
 	result: Object,
-  index: Number
+  index: Number,
+  opacity: Boolean
 })
 
 const emit = defineEmits(["updateInnerTaskList"])
@@ -55,6 +56,10 @@ const textUnderline = completed => {
   }
 }
 
+const opacityShow = {
+    "opacity-50": props.opacity
+}
+
 
 
 
@@ -65,7 +70,7 @@ const textUnderline = completed => {
 
     <th scope="row">{{ index + 1 }}</th>
 			  <td v-if="!isEdit" @dblclick="isEditTask(result)">
-          <p :style="textUnderline(result.is_completed)">{{ result.name }}</p>
+          <p :style="textUnderline(result.is_completed)" :class="opacityShow">{{ result.name }}</p>
         </td>
         <td v-else>
           <input
@@ -103,4 +108,7 @@ const textUnderline = completed => {
   background-color: red;
 }
 
+.opacity-50 {
+  opacity: 50%
+}
 </style>

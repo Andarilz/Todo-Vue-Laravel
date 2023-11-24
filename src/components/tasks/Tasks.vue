@@ -41,6 +41,10 @@ export default {
 		show: {
 			type: Boolean,
 			default: true
+		},
+		opacity: {
+			type: Boolean,
+			default: false
 		}
 	},
 	emits: ["updateTaskList"],
@@ -66,7 +70,7 @@ export default {
 		</thead>
       <tbody>
 			<tr v-for="(r, index) in result">
-				<Task :result="r" :index="index" @updateInnerTaskList="updateList" />
+				<Task :opacity="opacity" :result="r" :index="index" @updateInnerTaskList="updateList" />
 			</tr>
 		</tbody>
 	</table>
