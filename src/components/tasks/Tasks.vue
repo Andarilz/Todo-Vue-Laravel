@@ -20,6 +20,8 @@ defineProps({
 <script>
 
 import Task from './Task.vue'
+import { storeToRefs } from 'pinia'
+import { useTaskStore } from '../../stores/task'
 
 
 export default {

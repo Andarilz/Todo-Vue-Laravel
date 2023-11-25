@@ -5,9 +5,11 @@ import Tasks from "../components/tasks/Tasks.vue"
 import { ref, onMounted, computed } from "vue"
 import { allTasks } from "../http/task-api"
 import { useTaskStore } from "../stores/task"
+import { storeToRefs } from "pinia"
 
 const store = useTaskStore()
 const result = ref([])
+const { tasks, completedTasks, uncompletedTasks } = storeToRefs(store)
 
 const getTodoList = async () => {
   const { data } = await allTasks()
@@ -16,11 +18,8 @@ const getTodoList = async () => {
 
 onMounted(async () => {
   getTodoList()
-  console.log(store.task)
 })
 
-const completedTasks   = computed(() => result.value.filter(task =>  task.is_completed))
-const uncompletedTasks = computed(() => result.value.filter(task => !task.is_completed))
 
 const toggleTasks = ref(false)
 
