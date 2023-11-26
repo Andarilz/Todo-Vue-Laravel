@@ -10,10 +10,10 @@ import { storeToRefs } from "pinia"
 const store = useTaskStore()
 const result = ref([])
 const { tasks, completedTasks, uncompletedTasks } = storeToRefs(store)
+const { fetchAllTasks } = store
 
 const getTodoList = async () => {
-  const { data } = await allTasks()
-  result.value = data.data
+  fetchAllTasks()
 }
 
 onMounted(async () => {
@@ -24,11 +24,11 @@ onMounted(async () => {
 const toggleTasks = ref(false)
 
 const showCompleted = computed(() => {
-  return completedTasks.value.length > 0 && uncompletedTasks.value.length > 0
+  return completedTasks.value.length > 0
 })
 
 const hideCompleted = computed(() => {
-  return completedTasks.value.length > 0 && uncompletedTasks.value.length === 0
+  return uncompletedTasks.value.length > 0
 })
 
 </script>
@@ -42,7 +42,7 @@ const hideCompleted = computed(() => {
             <div class="card-body p-4">
               <h4 class="text-center my-3 pb-3">To Do App</h4>
               <Form  @updateTaskList="getTodoList" />
-              <Tasks @updateTaskList="getTodoList" :result="uncompletedTasks" />
+              <Tasks @updateTaskList="getTodoList" :result="uncompletedTasks" :show="hideCompleted" />
               <div v-show="showCompleted">
                 <button class="btn btn-danger" @click="toggleTasks = !toggleTasks">
                   <span v-if="toggleTasks">Hide</span>
