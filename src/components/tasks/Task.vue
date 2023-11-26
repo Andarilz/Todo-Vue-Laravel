@@ -1,9 +1,13 @@
 <script setup>
 
-import { defineProps, defineEmits, computed, ref, onMounted } from 'vue'
-import { deleteTask, completeTask, updateTask, getTask } from '../../http/task-api'
+import { defineProps, computed, ref, onMounted } from 'vue'
+import { updateTask } from '../../http/task-api'
 import TaskActions from './TaskActions.vue'
+import { useTaskStore } from "../../stores/task"
 
+
+const store = useTaskStore()
+const { fetchAllTasks } = store
 const form1 = ref("")
 const task = ref({})
 const isEdit = ref(false)
@@ -11,7 +15,7 @@ const isEdit = ref(false)
 const isEditTask = result => {
   isEdit.value = !isEdit.value
   // getTaskById(result.id)
-  form1.value = result.name
+  form1.value = props.result.name
 }
 
 // const getTaskById = async id => {
@@ -28,25 +32,30 @@ const props = defineProps({
   opacity: Boolean
 })
 
-const emit = defineEmits(["updateInnerTaskList"])
+// const emit = defineEmits(["updateInnerTaskList"])
 
-const deleteTaskApi = async (id) => {
-  await deleteTask(id)
-  emit("updateInnerTaskList")
-}
+// const deleteTaskApi = async (id) => {
+//   await deleteTask(id)
+//   // emit("updateInnerTaskList")
+//   fetchAllTasks()
+// }
 
-const changeStatus = async (task) => {
-  await completeTask(task.id, {...task, is_completed: !task.is_completed})
-  emit("updateInnerTaskList")
-}
+// const changeStatus = async (task) => {
+//   await completeTask(task.id, {...task, is_completed: !task.is_completed})
+//   // emit("updateInnerTaskList")
+//   fetchAllTasks()
+// }
 
-const isCompleted = computed(() => props.result.is_completed ? "green" : "red")
 
 const editTask = async (res) => {
     await updateTask(res.id, { ...res, name: form1.value })
-    emit("updateInnerTaskList")
+    // emit("updateInnerTaskList")
+    await fetchAllTasks()
     isEditTask()
 }
+
+
+const isCompleted = computed(() => props.result.is_completed ? "green" : "red")
 
 const textUnderline = completed => {
   if(completed){
@@ -82,7 +91,7 @@ const opacityShow = {
         </td>
         <td><div class="status-circle" :class="isCompleted"></div></td>
         <td>
-        <TaskActions @editEmit="isEditTask(result)" :result="result" @changeStatusInner="changeStatus($event)" @deleteTaskApiInner="deleteTaskApi($event)" />
+        <TaskActions :result="result" />
     </td>
 
 </template>
