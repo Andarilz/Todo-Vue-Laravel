@@ -12,12 +12,12 @@ const result = ref([])
 const { tasks, completedTasks, uncompletedTasks } = storeToRefs(store)
 const { fetchAllTasks } = store
 
-const getTodoList = async () => {
-  fetchAllTasks()
-}
+// const getTodoList = async () => {
+//   fetchAllTasks()
+// }
 
 onMounted(async () => {
-  getTodoList()
+  fetchAllTasks()
 })
 
 
@@ -42,7 +42,7 @@ const hideCompleted = computed(() => {
             <div class="card-body p-4">
               <h4 class="text-center my-3 pb-3">To Do App</h4>
               <Form  @updateTaskList="getTodoList" />
-              <Tasks @updateTaskList="getTodoList" :result="uncompletedTasks" :show="hideCompleted" />
+              <Tasks :result="uncompletedTasks" :show="hideCompleted" />
               <div v-show="showCompleted">
                 <button class="btn btn-danger" @click="toggleTasks = !toggleTasks">
                   <span v-if="toggleTasks">Hide</span>

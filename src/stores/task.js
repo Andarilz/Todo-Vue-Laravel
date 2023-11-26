@@ -19,16 +19,13 @@ const tmp = {
 	}
 }
 
+
 export const useTaskStore = defineStore("taskStore", () => {
+
 	const tasks = ref([])
-	// const task  = variable({
-	// 	id: null,
-	// 	name: null,
-	// 	is_completed: false
-	// })
 
 	const uncompletedTasks = computed(() => tasks.value.filter(task => !task.is_completed))
-	const completedTasks   = computed(() => tasks.value.filter(task =>  task.is_completed))
+	const completedTasks   = computed(() => tasks.value.filter(task => task.is_completed))
 
 	const fetchAllTasks = async () => {
 		const { data } = await allTasks()
@@ -37,8 +34,8 @@ export const useTaskStore = defineStore("taskStore", () => {
 
 	return {
 		tasks,
-		uncompletedTasks,
 		completedTasks,
+		uncompletedTasks,
 		fetchAllTasks
 	}
 

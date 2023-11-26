@@ -9,7 +9,7 @@ import { useTaskStore } from "../../stores/task"
 const store = useTaskStore()
 const { fetchAllTasks } = store
 const form1 = ref("")
-const task = ref({})
+// const task = ref({})
 const isEdit = ref(false)
 
 const isEditTask = result => {

@@ -1,21 +1,25 @@
 <script setup>
 
 import { ref, defineEmits } from 'vue'
-import { createTask } from '../http/task-api';
+import { createTask } from '../http/task-api'
+import { useTaskStore } from "../stores/task"
 
-const emit = defineEmits([
-	"updateTaskList"
-])
+// const emit = defineEmits([
+// 	"updateTaskList"
+// ])
 
 
 const form1 = ref("")
+const store = useTaskStore()
+const { fetchAllTasks } = store
 
 const saveTask = async (event) => {
   event.preventDefault()
   if(form1.value.length > 5){
     await createTask({ name: form1.value.trim() })
     form1.value = ""
-		emit("updateTaskList")
+    fetchAllTasks()
+		// emit("updateTaskList")
   }
 }
 
