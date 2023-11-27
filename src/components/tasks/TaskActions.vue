@@ -1,7 +1,7 @@
 <script setup>
 
 import { defineProps, defineEmits } from 'vue'
-import { deleteTask, completeTask, updateTask, getTask } from '../../http/task-api'
+// import { deleteTask, completeTask, updateTask, getTask } from '../../http/task-api'
 import { useTaskStore } from "../../stores/task"
 
 const props = defineProps({
@@ -12,26 +12,24 @@ const props = defineProps({
 
 const store = useTaskStore()
 
-const { fetchAllTasks } = store
+const { changeStatus, deleteTaskApi, editTask } = store
 
-const deleteTaskApi = async (id) => {
-  await deleteTask(id)
-  // emit("updateInnerTaskList")
-  fetchAllTasks()
-}
+// const deleteTaskApi = async (id) => {
+//   await deleteTask(id)
+//   fetchAllTasks()
+//   // emit("updateInnerTaskList")
+// }
 
-const changeStatus = async (task) => {
-  await completeTask(task.id, {...task, is_completed: !task.is_completed})
-  // emit("updateInnerTaskList")
-  fetchAllTasks()
-}
+// const changeStatus = async (task) => {
+//   await completeTask(task.id, {...task, is_completed: !task.is_completed})
+//   fetchAllTasks()
+//   // emit("updateInnerTaskList")
+// }
 
 
-// const editTask = async (res) => {
-//     await updateTask(res.id, { ...res, name: form1.value })
-//     // emit("updateInnerTaskList")
-//     await fetchAllTasks()
-//     isEditTask()
+// const editTaskHandle = async (res) => {
+//     editTask(res)
+
 // }
 
 </script>
@@ -40,5 +38,5 @@ const changeStatus = async (task) => {
 
 	<button @click="deleteTaskApi(result.id)" class="btn btn-danger">Delete</button>
   <button @click="changeStatus(result)" class="btn btn-success">{{ result.is_completed ? "Restart" : "Finish" }}</button>
-	<button @click="editTask(result)" class="btn btn-info">Edit</button>
+	<!-- <button @click="editTaskHandle(result)" class="btn btn-info">Edit</button> -->
 </template>

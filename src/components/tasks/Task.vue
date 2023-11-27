@@ -7,12 +7,12 @@ import { useTaskStore } from "../../stores/task"
 
 
 const store = useTaskStore()
-const { fetchAllTasks } = store
+const { editTask } = store
 const form1 = ref("")
 // const task = ref({})
 const isEdit = ref(false)
 
-const isEditTask = result => {
+const isEditTask = () => {
   isEdit.value = !isEdit.value
   // getTaskById(result.id)
   form1.value = props.result.name
@@ -47,10 +47,12 @@ const props = defineProps({
 // }
 
 
-const editTask = async (res) => {
-    await updateTask(res.id, { ...res, name: form1.value })
-    // emit("updateInnerTaskList")
-    await fetchAllTasks()
+const edit = async (res, formData) => {
+    // await updateTask(res.id, { ...res, name: form.value })
+    // // emit("updateInnerTaskList")
+    // await fetchAllTasks()
+    // isEditTask()
+    await editTask(res, formData)
     isEditTask()
 }
 
@@ -85,7 +87,7 @@ const opacityShow = {
           <input
             type="text"
             v-model="form1"
-            @keyup.enter="editTask(result)"
+            @keyup.enter="edit(result, form1)"
             @keyup.esc="toggleEdit"
           >
         </td>

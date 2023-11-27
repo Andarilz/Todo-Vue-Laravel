@@ -41,7 +41,7 @@ const hideCompleted = computed(() => {
           <div class="card rounded-3">
             <div class="card-body p-4">
               <h4 class="text-center my-3 pb-3">To Do App</h4>
-              <Form  @updateTaskList="getTodoList" />
+              <Form  />
               <Tasks :result="uncompletedTasks" :show="hideCompleted" />
               <div v-show="showCompleted">
                 <button class="btn btn-danger" @click="toggleTasks = !toggleTasks">
@@ -49,7 +49,7 @@ const hideCompleted = computed(() => {
                   <span v-else>Show</span>
                 </button>
               </div>
-              <Tasks :opacity="true" @updateTaskList="getTodoList" :result="completedTasks" :show="toggleTasks && showCompleted" />
+              <Tasks :opacity="true" :result="completedTasks" :show="toggleTasks && showCompleted" />
             </div>
           </div>
         </div>

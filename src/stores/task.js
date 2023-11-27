@@ -1,5 +1,5 @@
 import { defineStore } from "pinia"
-import { allTasks } from "../http/task-api"
+import { allTasks, updateTask, completeTask, deleteTask } from "../http/task-api"
 import { ref, reactive, computed } from "vue"
 
 const tmp = {
@@ -32,11 +32,31 @@ export const useTaskStore = defineStore("taskStore", () => {
 		tasks.value = data.data
 	}
 
+	const editTask = async (res, form) => {
+    await updateTask(res.id, { ...res, name: form })
+    await fetchAllTasks()
+	}
+
+	const changeStatus = async (task) => {
+		await completeTask(task.id, {...task, is_completed: !task.is_completed})
+		await fetchAllTasks()
+	}
+
+	const deleteTaskApi = async (id) => {
+		await deleteTask(id)
+		await fetchAllTasks()
+		// emit("updateInnerTaskList")
+	}
+
+
 	return {
 		tasks,
 		completedTasks,
 		uncompletedTasks,
-		fetchAllTasks
+		fetchAllTasks,
+		editTask,
+		changeStatus,
+		deleteTaskApi
 	}
 
 })
