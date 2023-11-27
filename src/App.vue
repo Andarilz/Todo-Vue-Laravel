@@ -9,7 +9,7 @@ import TodosPage from './pages/TodosPage.vue'
 
   <Navbar />
 
-  <TodosPage />
+  <router-view></router-view>
 
 </template>
 
