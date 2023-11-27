@@ -80,7 +80,10 @@ const opacityShow = {
 <template>
 
     <th scope="row">{{ index + 1 }}</th>
-			  <td v-if="!isEdit" @dblclick="isEditTask(result)">
+			  <td
+          v-if="!isEdit"
+          @dblclick="isEditTask(result)"
+        >
           <p :style="textUnderline(result.is_completed)" :class="opacityShow">{{ result.name }}</p>
         </td>
         <td v-else>
@@ -93,7 +96,7 @@ const opacityShow = {
         </td>
         <td><div class="status-circle" :class="isCompleted"></div></td>
         <td>
-        <TaskActions :result="result" />
+        <TaskActions :result="result" @editHandle="isEditTask" :isEdit="isEdit" />
     </td>
 
 </template>

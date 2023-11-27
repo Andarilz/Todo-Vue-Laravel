@@ -5,9 +5,11 @@ import { defineProps, defineEmits } from 'vue'
 import { useTaskStore } from "../../stores/task"
 
 const props = defineProps({
-	result: Object
+	result: Object,
+  isEdit: Boolean
 })
 
+const emit = defineEmits(["editHandle"])
 // const emit = defineEmits(["changeStatusInner", "deleteTaskApiInner", "editEmit"])
 
 const store = useTaskStore()
@@ -27,10 +29,10 @@ const { changeStatus, deleteTaskApi, editTask } = store
 // }
 
 
-// const editTaskHandle = async (res) => {
-//     editTask(res)
-
-// }
+const editTaskHandle = async (res) => {
+    editTask(res)
+    emit("editHandle")
+}
 
 </script>
 
@@ -38,5 +40,5 @@ const { changeStatus, deleteTaskApi, editTask } = store
 
 	<button @click="deleteTaskApi(result.id)" class="btn btn-danger">Delete</button>
   <button @click="changeStatus(result)" class="btn btn-success">{{ result.is_completed ? "Restart" : "Finish" }}</button>
-	<!-- <button @click="editTaskHandle(result)" class="btn btn-info">Edit</button> -->
+	<button @click="editTaskHandle(result)" v-if="!isEdit" class="btn btn-info">Edit</button>
 </template>
