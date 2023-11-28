@@ -4,10 +4,12 @@ import { defineProps, computed, ref, onMounted } from 'vue'
 import { updateTask } from '../../http/task-api'
 import TaskActions from './TaskActions.vue'
 import { useTaskStore } from "../../stores/task"
+import { storeToRefs } from 'pinia';
 
 
 const store = useTaskStore()
 const { editTask } = store
+const { hello, hardHello, newHardHello } = storeToRefs(store)
 const form1 = ref("")
 // const task = ref({})
 const isEdit = ref(false)
@@ -80,6 +82,7 @@ const opacityShow = {
 <template>
 
     <th scope="row">{{ index + 1 }}</th>
+        <td>{{ hardHello }} || {{ newHardHello }}</td>
 			  <td
           v-if="!isEdit"
           @dblclick="isEditTask(result)"

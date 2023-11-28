@@ -19,6 +19,7 @@
         </li>
         <li class="nav-item">
           <router-link class="nav-link" to="/register">Register</router-link>
+          <!-- <button @click="$router.push('/register')">Link Reg</button> -->
         </li>
       </ul>
       <form class="d-flex">

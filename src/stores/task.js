@@ -23,6 +23,11 @@ const tmp = {
 export const useTaskStore = defineStore("taskStore", () => {
 
 	const tasks = ref([])
+	const hello = ref("Hello, world")
+	const info = ref(" from USA")
+	const hardHello = computed(() => hello.value + info.value)
+	const newHardHello = ref(hello.value + info.value)
+	const changeHello = () => hello.value = "New data"
 
 	const uncompletedTasks = computed(() => tasks.value.filter(task => !task.is_completed))
 	const completedTasks   = computed(() => tasks.value.filter(task => task.is_completed))
@@ -56,7 +61,11 @@ export const useTaskStore = defineStore("taskStore", () => {
 		fetchAllTasks,
 		editTask,
 		changeStatus,
-		deleteTaskApi
+		deleteTaskApi,
+		hello,
+		changeHello,
+		hardHello,
+		newHardHello
 	}
 
 })

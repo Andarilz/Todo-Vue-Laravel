@@ -14,7 +14,7 @@ const emit = defineEmits(["editHandle"])
 
 const store = useTaskStore()
 
-const { changeStatus, deleteTaskApi, editTask } = store
+const { changeStatus, deleteTaskApi, editTask, changeHello } = store
 
 // const deleteTaskApi = async (id) => {
 //   await deleteTask(id)
@@ -37,7 +37,7 @@ const editTaskHandle = async (res) => {
 </script>
 
 <template>
-
+  <button @click="changeHello">Change hello</button>
 	<button @click="deleteTaskApi(result.id)" class="btn btn-danger">Delete</button>
   <button @click="changeStatus(result)" class="btn btn-success">{{ result.is_completed ? "Restart" : "Finish" }}</button>
 	<button @click="editTaskHandle(result)" v-if="!isEdit" class="btn btn-info">Edit</button>
