@@ -1,4 +1,12 @@
-<script>
+<script setup>
+
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const handleClick = () => {
+  router.push("/register")
+}
 
 
 </script>
@@ -18,8 +26,8 @@
           <router-link class="nav-link active" aria-current="page" to="/login">Login</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" to="/register">Register</router-link>
-          <!-- <button @click="$router.push('/register')">Link Reg</button> -->
+          <!-- <router-link class="nav-link" to="/register">Register</router-link> -->
+          <button @click="handleClick">Link Reg</button>
         </li>
       </ul>
       <form class="d-flex">
