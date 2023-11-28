@@ -42,7 +42,7 @@ const handleClick = () => {
 
 <style scoped>
 
-.nav-link.router-link-active{
+.router-link-active{
   color: green !important
 }
 
