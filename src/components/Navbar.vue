@@ -8,7 +8,6 @@ const handleClick = () => {
   router.push("/register")
 }
 
-
 </script>
 
 
@@ -23,11 +22,11 @@ const handleClick = () => {
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <router-link class="nav-link active" aria-current="page" to="/login">Login</router-link>
+          <router-link class="nav-link" aria-current="page" to="/login">Login</router-link>
         </li>
         <li class="nav-item">
-          <!-- <router-link class="nav-link" to="/register">Register</router-link> -->
-          <button @click="handleClick">Link Reg</button>
+          <router-link class="nav-link" to="/register">Register</router-link>
+          <!-- <button @click="handleClick">Link Reg</button> -->
         </li>
       </ul>
       <form class="d-flex">
@@ -41,7 +40,10 @@ const handleClick = () => {
 </template>
 
 
-<style>
+<style scoped>
 
+.nav-link.router-link-active{
+  color: green !important
+}
 
 </style>
