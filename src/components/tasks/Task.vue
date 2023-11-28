@@ -1,17 +1,21 @@
 <script setup>
 
-import { defineProps, defineEmits, computed, ref, onMounted } from 'vue'
-import { deleteTask, completeTask, updateTask, getTask } from '../../http/task-api'
+import { defineProps, computed, ref, onMounted } from 'vue'
+import { updateTask } from '../../http/task-api'
 import TaskActions from './TaskActions.vue'
+import { useTaskStore } from "../../stores/task"
 
+
+const store = useTaskStore()
+const { editTask } = store
 const form1 = ref("")
-const task = ref({})
+// const task = ref({})
 const isEdit = ref(false)
 
-const isEditTask = result => {
+const isEditTask = () => {
   isEdit.value = !isEdit.value
   // getTaskById(result.id)
-  form1.value = result.name
+  form1.value = props.result.name
 }
 
 // const getTaskById = async id => {
@@ -28,25 +32,32 @@ const props = defineProps({
   opacity: Boolean
 })
 
-const emit = defineEmits(["updateInnerTaskList"])
+// const emit = defineEmits(["updateInnerTaskList"])
 
-const deleteTaskApi = async (id) => {
-  await deleteTask(id)
-  emit("updateInnerTaskList")
-}
+// const deleteTaskApi = async (id) => {
+//   await deleteTask(id)
+//   // emit("updateInnerTaskList")
+//   fetchAllTasks()
+// }
 
-const changeStatus = async (task) => {
-  await completeTask(task.id, {...task, is_completed: !task.is_completed})
-  emit("updateInnerTaskList")
-}
+// const changeStatus = async (task) => {
+//   await completeTask(task.id, {...task, is_completed: !task.is_completed})
+//   // emit("updateInnerTaskList")
+//   fetchAllTasks()
+// }
 
-const isCompleted = computed(() => props.result.is_completed ? "green" : "red")
 
-const editTask = async (res) => {
-    await updateTask(res.id, { ...res, name: form1.value })
-    emit("updateInnerTaskList")
+const edit = async (res, formData) => {
+    // await updateTask(res.id, { ...res, name: form.value })
+    // // emit("updateInnerTaskList")
+    // await fetchAllTasks()
+    // isEditTask()
+    await editTask(res, formData)
     isEditTask()
 }
+
+
+const isCompleted = computed(() => props.result.is_completed ? "green" : "red")
 
 const textUnderline = completed => {
   if(completed){
@@ -69,20 +80,23 @@ const opacityShow = {
 <template>
 
     <th scope="row">{{ index + 1 }}</th>
-			  <td v-if="!isEdit" @dblclick="isEditTask(result)">
+			  <td
+          v-if="!isEdit"
+          @dblclick="isEditTask(result)"
+        >
           <p :style="textUnderline(result.is_completed)" :class="opacityShow">{{ result.name }}</p>
         </td>
         <td v-else>
           <input
             type="text"
             v-model="form1"
-            @keyup.enter="editTask(result)"
+            @keyup.enter="edit(result, form1)"
             @keyup.esc="toggleEdit"
           >
         </td>
         <td><div class="status-circle" :class="isCompleted"></div></td>
         <td>
-        <TaskActions @editEmit="isEditTask(result)" :result="result" @changeStatusInner="changeStatus($event)" @deleteTaskApiInner="deleteTaskApi($event)" />
+        <TaskActions :result="result" @editHandle="isEditTask" :isEdit="isEdit" />
     </td>
 
 </template>

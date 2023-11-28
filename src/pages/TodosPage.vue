@@ -3,30 +3,32 @@
 import Form from "../components/Form.vue"
 import Tasks from "../components/tasks/Tasks.vue"
 import { ref, onMounted, computed } from "vue"
-import { allTasks } from "../http/task-api";
+import { allTasks } from "../http/task-api"
+import { useTaskStore } from "../stores/task"
+import { storeToRefs } from "pinia"
 
+const store = useTaskStore()
 const result = ref([])
+const { tasks, completedTasks, uncompletedTasks } = storeToRefs(store)
+const { fetchAllTasks } = store
 
-const getTodoList = async () => {
-  const { data } = await allTasks()
-  result.value = data.data
-}
+// const getTodoList = async () => {
+//   fetchAllTasks()
+// }
 
 onMounted(async () => {
-  getTodoList()
+  fetchAllTasks()
 })
 
-const completedTasks   = computed(() => result.value.filter(task =>  task.is_completed))
-const uncompletedTasks = computed(() => result.value.filter(task => !task.is_completed))
 
 const toggleTasks = ref(false)
 
 const showCompleted = computed(() => {
-  return completedTasks.value.length > 0 && uncompletedTasks.value.length > 0
+  return completedTasks.value.length > 0
 })
 
 const hideCompleted = computed(() => {
-  return completedTasks.value.length > 0 && uncompletedTasks.value.length === 0
+  return uncompletedTasks.value.length > 0
 })
 
 </script>
@@ -39,15 +41,15 @@ const hideCompleted = computed(() => {
           <div class="card rounded-3">
             <div class="card-body p-4">
               <h4 class="text-center my-3 pb-3">To Do App</h4>
-              <Form  @updateTaskList="getTodoList" />
-              <Tasks @updateTaskList="getTodoList" :result="uncompletedTasks" />
+              <Form  />
+              <Tasks :result="uncompletedTasks" :show="hideCompleted" />
               <div v-show="showCompleted">
                 <button class="btn btn-danger" @click="toggleTasks = !toggleTasks">
                   <span v-if="toggleTasks">Hide</span>
                   <span v-else>Show</span>
                 </button>
               </div>
-              <Tasks :opacity="true" @updateTaskList="getTodoList" :result="completedTasks" :show="toggleTasks && showCompleted" />
+              <Tasks :opacity="true" :result="completedTasks" :show="toggleTasks && showCompleted" />
             </div>
           </div>
         </div>

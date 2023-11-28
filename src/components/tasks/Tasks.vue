@@ -20,6 +20,8 @@ defineProps({
 <script>
 
 import Task from './Task.vue'
+import { storeToRefs } from 'pinia'
+import { useTaskStore } from '../../stores/task'
 
 
 export default {
@@ -27,8 +29,11 @@ export default {
 	setup(props, context){
 
 		const result = props.result
+		const store  = useTaskStore()
+		const { fetchAllTasks } = store
 		const updateList = () => {
-			context.emit("updateTaskList")
+			// context.emit("updateTaskList")
+			fetchAllTasks()
 		}
 
 		return {
@@ -47,7 +52,7 @@ export default {
 			default: false
 		}
 	},
-	emits: ["updateTaskList"],
+	// emits: ["updateTaskList"],
 	components: {
 		Task
 	}
@@ -70,7 +75,7 @@ export default {
 		</thead>
       <tbody>
 			<tr v-for="(r, index) in result">
-				<Task :opacity="opacity" :result="r" :index="index" @updateInnerTaskList="updateList" />
+				<Task :opacity="opacity" :result="r" :index="index"/>
 			</tr>
 		</tbody>
 	</table>
