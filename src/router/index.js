@@ -7,10 +7,18 @@ const router = createRouter({
 	// linkActiveClass: "active"
 })
 
-router.beforeEach((to, from) => {
-	if(to.path == "/login"){
-		return { name: "register" }
-	}
-})
+router.beforeEach((to, from, next) => {
+  if (to.path === "/register") {
+    // Проверка на наличие авторизации.
+    // Замените эту логику на вашу логику проверки авторизации.
+
+    // Пример: если пользователь не аутентифицирован, перенаправить на страницу входа.
+      next({ name: "login", query: { message: "helloWorld", redirect: to.fullPath } });
+      // Если пользователь аутентифицирован, продолжить переход к запрошенному маршруту.
+    } else {
+			next()
+		}
+});
+
 
 export default router
