@@ -9,7 +9,11 @@ import TodosPage from './pages/TodosPage.vue'
 
   <Navbar />
 
-  <router-view></router-view>
+  <router-view v-slot="{Component}">
+    <transition mode="out-in" name="fade">
+      <component :is="Component"></component>
+    </transition>
+  </router-view>
 
 </template>
 
@@ -22,6 +26,16 @@ import TodosPage from './pages/TodosPage.vue'
 
 .table>:not(caption)>*>* {
   min-width: 180px
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 
 </style>
