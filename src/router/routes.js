@@ -2,6 +2,7 @@ import TodosPage from '../pages/TodosPage.vue'
 import Login from "../pages/Login.vue"
 import Register from "../pages/Register.vue"
 import PageNotFound from "../pages/pageNotFound.vue"
+import Home from "../pages/Home.vue"
 
 
 const routes = [
@@ -24,6 +25,11 @@ const routes = [
 		path: "/:notFound(.*)",
 		component: PageNotFound,
 		name: "404erorr"
+	},
+	{
+		path: "/",
+		component: Home,
+		name: "home"
 	}
 ]
 
