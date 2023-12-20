@@ -37,7 +37,6 @@ const editTaskHandle = async (res) => {
 </script>
 
 <template>
-  <button @click="changeHello">Change hello</button>
 	<button @click="deleteTaskApi(result.id)" class="btn btn-danger">Delete</button>
   <button @click="changeStatus(result)" class="btn btn-success">{{ result.is_completed ? "Restart" : "Finish" }}</button>
 	<button @click="editTaskHandle(result)" v-if="!isEdit" class="btn btn-info">Edit</button>

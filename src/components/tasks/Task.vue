@@ -82,7 +82,6 @@ const opacityShow = {
 <template>
 
     <th scope="row">{{ index + 1 }}</th>
-        <td>{{ hardHello }} || {{ newHardHello }}</td>
 			  <td
           v-if="!isEdit"
           @dblclick="isEditTask(result)"

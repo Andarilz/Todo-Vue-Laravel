@@ -1,7 +1,6 @@
 <script setup>
 
 import Navbar    from './components/Navbar.vue'
-import TodosPage from './pages/TodosPage.vue'
 
 </script>
 
@@ -18,6 +17,10 @@ import TodosPage from './pages/TodosPage.vue'
 </template>
 
 <style>
+
+.table>:not(caption)>*>* {
+  min-width: 85px !important;
+}
 
 .btn {
   width: 105px;
@@ -37,5 +40,6 @@ import TodosPage from './pages/TodosPage.vue'
 .fade-leave-to {
   opacity: 0;
 }
+
 
 </style>

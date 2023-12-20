@@ -8,17 +8,11 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.path === "/register") {
-    // Проверка на наличие авторизации.
-    // Замените эту логику на вашу логику проверки авторизации.
-
-    // Пример: если пользователь не аутентифицирован, перенаправить на страницу входа.
-      next({ name: "login", query: { message: "helloWorld", redirect: to.fullPath } });
-      // Если пользователь аутентифицирован, продолжить переход к запрошенному маршруту.
-    } else {
-			next()
-		}
-});
-
+  if(to.path === "/register"){
+    next({name: "login"})
+  } else {
+    next()
+  }
+})
 
 export default router
