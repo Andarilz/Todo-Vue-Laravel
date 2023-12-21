@@ -9,17 +9,26 @@ const routes = [
 	{
 		path: "/tasks",
 		component: TodosPage,
-		name: "tasks"
+		name: "tasks",
+		meta: {
+			auth: true
+		}
 	},
 	{
 		path: "/login",
 		component: Login,
-		name: "login"
+		name: "login",
+		meta: {
+			auth: true
+		}
 	},
 	{
 		path: "/register",
 		component: Register,
-		name: "register"
+		name: "register",
+		meta: {
+			auth: true
+		}
 	},
 	{
 		path: "/:notFound(.*)",
