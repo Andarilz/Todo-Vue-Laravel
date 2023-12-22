@@ -20,7 +20,10 @@ router.beforeEach(to => {
 
   if(to.meta.auth && !store.isLoggedIn) {
     return {
-      name: "login"
+      name: "login",
+      query: {
+        redirect: to.fullPath
+      }
     }
   }
 

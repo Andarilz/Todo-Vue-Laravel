@@ -19,7 +19,7 @@ const routes = [
 		component: Login,
 		name: "login",
 		meta: {
-			auth: true
+			auth: false
 		}
 	},
 	{
@@ -33,12 +33,18 @@ const routes = [
 	{
 		path: "/:notFound(.*)",
 		component: PageNotFound,
-		name: "404erorr"
+		name: "404erorr",
+		meta: {
+			auth: false
+		}
 	},
 	{
 		path: "/",
 		component: Home,
-		name: "home"
+		name: "home",
+		meta: {
+			auth: true
+		}
 	}
 ]
 
