@@ -25,7 +25,7 @@ export const useAuthStore = defineStore("authStore", () => {
 
 	const handleRegister = async newUser => {
 
-		await handleRegister(newUser)
+		await register(newUser)
 
 		await login({
 			email: newUser.email,
@@ -34,7 +34,7 @@ export const useAuthStore = defineStore("authStore", () => {
 
 	}
 
-	const logout = async() => {
+	const handleLogout = async() => {
 
 		await logout()
 
@@ -48,7 +48,7 @@ export const useAuthStore = defineStore("authStore", () => {
 		fetchUser,
 		handleLogin,
 		handleRegister,
-		logout
+		handleLogout
 	}
 
 })
