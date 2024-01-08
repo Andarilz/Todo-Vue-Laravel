@@ -3,20 +3,15 @@ import routes from "./routes"
 import { useAuthStore } from "../stores/auth";
 
 const router = createRouter({
-	routes,
-	history: createWebHistory(),
-	// linkActiveClass: "active"
+  routes,
+  history: createWebHistory()
 })
 
-router.beforeEach(to => {
+router.beforeEach(async to => {
 
   const store = useAuthStore()
 
-  // if(to.path === "/register"){
-  //   next({name: "login"})
-  // } else {
-  //   next()
-  // }
+  await store.fetchUser()
 
   if(to.meta.auth && !store.isLoggedIn) {
     return {
@@ -25,11 +20,14 @@ router.beforeEach(to => {
         redirect: to.fullPath
       }
     }
+  } else if(to.meta.guest && store.isLoggedIn){
+    return {
+      name: "tasks",
+      query: {
+        redirect: to.fullPath
+      }
+    }
   }
-
-
-
-
 })
 
 export default router

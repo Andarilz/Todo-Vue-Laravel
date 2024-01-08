@@ -19,7 +19,8 @@ const routes = [
 		component: Login,
 		name: "login",
 		meta: {
-			auth: false
+			auth: false,
+			guest: true
 		}
 	},
 	{
@@ -27,7 +28,8 @@ const routes = [
 		component: Register,
 		name: "register",
 		meta: {
-			auth: true
+			auth: true,
+			guest: true
 		}
 	},
 	{

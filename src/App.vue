@@ -1,6 +1,9 @@
 <script setup>
 
-import Navbar    from './components/Navbar.vue'
+  import Navbar    from './components/Navbar.vue'
+  import { useRoute } from 'vue-router';
+
+  const route = useRoute();
 
 </script>
 
@@ -8,7 +11,7 @@ import Navbar    from './components/Navbar.vue'
 
   <Navbar />
 
-  <router-view v-slot="{Component}">
+  <router-view v-slot="{Component}" :key="route.fullPath">
     <transition mode="out-in" name="fade">
       <component :is="Component"></component>
     </transition>

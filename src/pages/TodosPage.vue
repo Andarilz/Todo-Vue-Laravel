@@ -6,8 +6,10 @@ import { ref, onMounted, computed } from "vue"
 import { allTasks } from "../http/task-api"
 import { useTaskStore } from "../stores/task"
 import { storeToRefs } from "pinia"
+import { useAuthStore } from "../stores/auth"
 
 const store = useTaskStore()
+const authStore = useAuthStore()
 const result = ref([])
 const { tasks, completedTasks, uncompletedTasks } = storeToRefs(store)
 const { fetchAllTasks } = store
@@ -17,7 +19,7 @@ const { fetchAllTasks } = store
 // }
 
 onMounted(async () => {
-  fetchAllTasks()
+    await fetchAllTasks()
 })
 
 

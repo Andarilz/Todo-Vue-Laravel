@@ -1,12 +1,22 @@
 <script setup>
 
-import { useRouter } from 'vue-router'
+  import { useRouter } from 'vue-router'
+  import { useAuthStore } from "../stores/auth"
 
-const router = useRouter()
+  const router = useRouter()
 
-const handleClick = () => {
-  router.push("/register")
-}
+  const handleClick = () => {
+    router.push("/register")
+  }
+
+  const store = useAuthStore()
+
+  const { handleLogout } = store
+
+  const logout = async () => {
+   await handleLogout()
+   console.log("click")
+  }
 
 </script>
 
@@ -21,10 +31,13 @@ const handleClick = () => {
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <router-link class="nav-link" aria-current="page" to="/login">Login</router-link>
+        <li class="nav-item" v-if="!store.isLoggedIn">
+            <router-link class="nav-link" aria-current="page" to="/login">Login</router-link>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" v-else>
+            <a class="nav-link" aria-current="page" @click="logout">Logout</a>
+        </li>
+        <li class="nav-item" v-if="!store.isLoggedIn">
           <router-link class="nav-link" to="/register">Register</router-link>
           <!-- <button @click="handleClick">Link Reg</button> -->
         </li>
